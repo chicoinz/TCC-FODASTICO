@@ -1,5 +1,6 @@
 # TCC-FODASTICO
-tlgd como é, gênio é gênio
+*INTEGRANTES*
+Mateus Buchalla, Francisco Morais, Joao Pedro Buchalla, Luis Guilherme Moraes, Rebeca do Santos 
 -------------------------------
 *COMPONENTES DO TRABALHO*
 -------------------------------
