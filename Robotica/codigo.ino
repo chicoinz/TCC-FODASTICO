@@ -7,15 +7,15 @@
 
 long readUltrasonicDistance(int trigger, int echo)
 {
-  pinMode(trigger, OUTPUT);  // Clear the trigger
+  pinMode(trigger, OUTPUT);  // Clear the trigger;
   digitalWrite(trigger, LOW);
   delayMicroseconds(2);
-  // Sets the trigger pin to HIGH state for 10 microseconds
+  // Sets the trigger pin to HIGH state for 10 microseconds;
   digitalWrite(trigger, HIGH);
   delayMicroseconds(10);
   digitalWrite(trigger, LOW);
   pinMode(echo, INPUT);
-  // Reads the echo pin, and returns the sound wave travel time in microseconds
+   // Reads the echo pin, and returns the sound wave travel time in microseconds;
   return pulseIn(echo, HIGH);
 }
 
@@ -30,13 +30,14 @@ void setup(){
 void loop()
 {
    /*
-    0.01723 = constante para transformar o valor de milimetros para cm;
+    0.01723 = constant to transform milimeters (mm) value to centimeters (cm);
     
     
-    se a distância for menor que  cm, ele liga o motor*/
+    If the distance is lower than 30 cm, turns on the motor*/
   if(0.01723*readUltrasonicDistance(triggerPin, echoPin) < 30){
     digitalWrite(motorPin, HIGH);
-  } //se não, deixa desligado.
+  } 
+    // If isn't, keeps off.
   else {
     digitalWrite(motorPin, LOW);
   }
