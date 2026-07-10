@@ -13,13 +13,17 @@
   "type": "commonjs",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "connect-flash": "^0.1.1",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "multer": "^2.2.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
-    "mysql2": "^3.22.5"
+    "mysql2": "^3.22.5",
+    "sequelize": "^6.37.8"
   }
 }

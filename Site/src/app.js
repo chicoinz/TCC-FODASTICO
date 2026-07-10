@@ -9,9 +9,9 @@ app.use(methodOverride('_method'));
 const flash = require('connect-flash');
 
 const path = require('path');
-app.use(express.static(path.join(__dirname, 'Front_End/Publico')));
+app.use(express.static(path.join(__dirname, 'Front_end', 'Publico')));
 
-const upload = require('./Banco_dados/imagens'); //multer
+const upload = require('./Back_end/Data_Base/images'); //multer
 
 app.use(session({
  secret: 'chave-secreta-bem-dificil', // usada para assinar o ID da sessão
@@ -29,17 +29,20 @@ app.use(express.urlencoded({ extended: true }));
 
 // Configurando EJS como motor de visualização
 app.set("view engine", "ejs");
-app.set("views", __dirname + "/Front_End/Views");
+app.set("views", path.join(__dirname, 'Front_end', 'View'));
 
-app.use('Scripts', express.static(path.join(__dirname, 'Front_End/Publico/Scripts')));
+app.use('/Scripts', express.static(path.join(__dirname, 'Front_end', 'Publico', 'Scripts')));
 const rotaInicial = require('./Roots/initial_roots');
 app.use('/', rotaInicial);
 
 const prodRotas = require('./Roots/product_roots');
-app.use('/produtos', prodRotas);
+app.use('/produto', prodRotas);
+
+const cartRotas = require('./Roots/cart_roots');
+app.use('/carrinho', cartRotas);
 
 const userRotas = require('./Roots/user_roots');
-app.use('/usuarios', userRotas);
+app.use('/usuario', userRotas);
 
 const adminRotas = require('./Roots/admin_roots');
 app.use('/admin', adminRotas);
