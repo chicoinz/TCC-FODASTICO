@@ -1,0 +1,984 @@
+/* ============================================================================
+   ESTILO GLOBAL - App Animais ao Resgate
+   ============================================================================
+   Estrutura organizada:
+   1. Reset & Base
+   2. Variáveis & Cores
+   3. Tipografia
+   4. Layout Geral
+   5. Cards & Grids
+   6. Modals & Overlays
+   7. Animações
+   8. Responsividade
+   ============================================================================ */
+
+/* ============================================================================
+   1. RESET & BASE
+   ============================================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  min-height: 100vh;
+}
+
+/* ============================================================================
+   2. VARIÁVEIS & CORES
+   ============================================================================ */
+:root {
+  /* Paleta Principal */
+  --primary: #6dd5ed;
+  --primary-dark: #2193b0;
+  --primary-gradient: linear-gradient(90deg, #6dd5ed, #2193b0);
+
+  /* Paleta Bootstrap */
+  --bs-primary: #0d6efd;
+  --bs-primary-dark: #0b5ed7;
+  --bs-secondary: #6c757d;
+  --bs-light: #f8f9fa;
+  --bs-light-border: #dee2e6;
+
+  /* Neutras */
+  --text-dark: #212529;
+  --text-light: #6c757d;
+  --bg-light: #f8f9fa;
+  --border-light: #dee2e6;
+
+  /* Avatar */
+  --avatar-gradient: linear-gradient(135deg, #6dd5ed, #2193b0);
+  --avatar-gradient-alt: linear-gradient(135deg, #ffd194, #d1913c);
+
+  /* Espaçamento */
+  --gap-sm: 8px;
+  --gap-md: 12px;
+  --gap-lg: 18px;
+  --gap-xl: 24px;
+
+  /* Transições */
+  --transition-sm: 0.2s ease;
+  --transition-md: 0.28s ease;
+  --transition-lg: 0.42s ease;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 20px 60px rgba(2, 10, 30, 0.4);
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Autenticação */
+  --auth-offset: 140px; /* espaço reservado para header + padding; ajuste se necessário */
+}
+
+/* ============================================================================
+   DARK MODE - Variáveis alternativas
+   ============================================================================ */
+html.dark-mode {
+  --primary: #1a8fa8;
+  --primary-dark: #0d4f63;
+  --primary-gradient: linear-gradient(90deg, #1a8fa8, #0d4f63);
+
+  --bs-primary: #0d6efd;
+  --bs-secondary: #adb5bd;
+  --bs-light: #212529;
+  --bs-light-border: #495057;
+
+  --text-dark: #e0e0e0;
+  --text-light: #b0b0b0;
+  --bg-light: #1e1e1e;
+  --border-light: #404040;
+}
+
+/* ============================================================================
+   3. TIPOGRAFIA
+   ============================================================================ */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.4;
+  color: var(--text-dark);
+  background-color: #fff;
+}
+
+html.dark-mode body {
+  background-color: #0f0f0f;
+  color: var(--text-dark);
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: var(--gap-sm);
+  text-align: left;
+  color: var(--text-dark);
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: var(--gap-lg);
+  margin-bottom: var(--gap-md);
+  color: var(--text-dark);
+}
+
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-dark);
+}
+
+/* ============================================================================
+   4. LAYOUT GERAL - 100% Flex sem Fixed Heights
+   ============================================================================ */
+.container-fluid {
+  padding: var(--gap-lg);
+  flex: 1;
+}
+
+/* Seções de componentes */
+.section {
+  margin-bottom: var(--gap-xl);
+}
+
+/* Header: altura automática, ocupa espaço natural */
+.app-header {
+  flex: 0 0 auto;                  /* não expande, altura natural */
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Main: ocupa 100% do espaço restante */
+.app-main {
+  margin: 0;
+  padding: 0;
+  flex: 1 1 auto;                  /* cresce para ocupar tudo */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;                   /* permite overflow em filhos */
+  width: 100%;
+  box-sizing: border-box;    /* garante que padding não aumente tamanho */
+  overflow: hidden;
+  overflow-x: hidden;        /* evita scroll horizontal desnecessário */
+  overflow-y: auto;          /* permite rolagem apenas se o conteúdo realmente ultrapassar */
+}
+
+/* Footer: altura automática, ocupa espaço natural */
+.app-footer {
+  flex: 0 0 auto;                  /* não expande, altura natural */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Seção de autenticação: 100% do app-main */
+.auth-section {
+  height: 100%;
+  flex: 1 1 auto;                  /* ocupa todo espaço disponível */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  min-height: 0;
+  width: 100%;
+}
+
+/* Card: largura máxima percentual, sem altura fixa */
+.auth-card {
+  height: 100%;
+  width: 100%;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  overflow: hidden;
+  max-height: 100%; /* nunca ultrapassa o container */
+  height: auto;                    /* altura automática */
+}
+
+/* Corpo do card: 100% do espaço, scroll interno */
+.auth-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  padding: 1.25rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;                  /* ocupa espaço */
+  min-height: 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* Formulário: 100% do espaço */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  flex: 1 1 auto;                  /* ocupa espaço */
+  min-height: 0;
+  width: 100%;
+}
+
+/* Botão: posiciona na base */
+.submit-btn {
+  margin-top: auto;
+  width: 100%;
+}
+
+/* ============================================================================
+   5. CARDS & GRIDS
+   ============================================================================ */
+
+/* Grid para cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--gap-lg);
+  margin-bottom: var(--gap-xl);
+}
+
+/* Estilo base para cards */
+.card {
+  cursor: pointer;
+  transition: all var(--transition-md);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  background-color: #fff;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hover effect nos cards */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Card Header customizado */
+.card-header-custom {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+}
+
+/* Avatar - Componente reutilizável */
+.avatar {
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  border-radius: var(--radius-md);
+  background: var(--avatar-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.avatar.large {
+  width: 160px;
+  height: 160px;
+  font-size: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--avatar-gradient-alt);
+}
+
+/* Card Body - Conteúdo principal */
+.card-body {
+  padding: var(--gap-md);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Card Footer - Ações */
+.card-footer {
+  padding: var(--gap-md);
+  background-color: var(--bs-light);
+  border-top: 1px solid var(--border-light);
+}
+
+/* Texto de card */
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.card-text {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+html.dark-mode .card-text {
+  color: #c0c0c0;
+}
+
+/* ============================================================================
+   6. MODALS & OVERLAYS
+   ============================================================================ */
+
+/* Backdrop do modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 30, 0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--gap-lg);
+  z-index: 999;
+}
+
+/* Modal container */
+.modal {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  max-width: 860px;
+  width: 100%;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  transform: scale(0.98);
+  transition: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.modal.open {
+  transform: scale(1);
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Conteúdo do modal */
+.modal-inner {
+  display: flex;
+  gap: var(--gap-lg);
+  padding: var(--gap-lg);
+}
+
+.modal-avatar {
+  flex: 0 0 160px;
+  height: 160px;
+  border-radius: var(--radius-lg);
+  background: var(--avatar-gradient-alt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #fff;
+  font-weight: 800;
+}
+
+.modal-content {
+  flex: 1;
+}
+
+.modal-content h3 {
+  margin: 0 0 var(--gap-sm) 0;
+  font-size: 20px;
+}
+
+.modal-content p {
+  margin: var(--gap-sm) 0;
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+/* Ações do modal */
+.modal-actions {
+  display: flex;
+  gap: var(--gap-sm);
+  margin-top: var(--gap-md);
+}
+
+.modal-actions form {
+  display: contents;
+}
+
+/* Botão fechar */
+.close-btn {
+  background: var(--bs-light);
+  border: 1px solid var(--border-light);
+  padding: var(--gap-sm) var(--gap-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all var(--transition-sm);
+}
+
+.close-btn:hover {
+  background-color: var(--border-light);
+}
+
+/* ============================================================================
+   7. ANIMAÇÕES
+   ============================================================================ */
+
+/* Clone flutuante para animação de zoom
+.fly-clone {
+  position: fixed;
+  z-index: 10000;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  transition: all 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: top, left, width, height;
+}
+
+.fly-clone.to-modal {
+  box-shadow: var(--shadow-xl);
+}
+
+.fly-clone.from-modal {
+  box-shadow: var(--shadow-md);
+}
+ */
+/* ============================================================================
+   8. RESPONSIVIDADE
+   ============================================================================ */
+
+/* Mobile - até 600px */
+@media (max-width: 600px) {
+  .container-fluid {
+    padding: var(--gap-md);
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-inner {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .modal-avatar {
+    width: 120px;
+    height: 120px;
+    font-size: 36px;
+  }
+
+  .avatar.large {
+    width: 120px;
+    height: 120px;
+    font-size: 36px;
+  }
+
+  .auth-card {
+    max-height: calc(100vh - 100px);
+    border-radius: 0.75rem;
+  }
+
+  .auth-card-body {
+    padding: 1rem;
+  }
+
+  .auth-section {
+    padding: 16px;
+  }
+}
+
+/* Tablet - 600px a 960px */
+@media (max-width: 960px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+/* Landscape mobile - até 800px */
+@media (max-width: 800px) {
+  .modal {
+    max-width: 95vw;
+  }
+
+  .modal-inner {
+    padding: var(--gap-md);
+  }
+}
+
+/* ============================================================================
+   ADMIN ESPECÍFICO
+   ============================================================================ */
+.sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--gap-md);
+  align-items: start;
+  margin-top: var(--gap-md);
+  width: 100%;
+  padding: 0 var(--gap-lg);
+  box-sizing: border-box;
+  overflow: visible;
+  max-width: 100%;
+}
+
+.section {
+  background: var(--bs-light);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 8px;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.section.open {
+  grid-column: 1 / -1;
+  z-index: 2;
+}
+
+@media (max-width: 1400px) {
+  .sections {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .sections {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 var(--gap-md);
+  }
+}
+
+@media (max-width: 600px) {
+  .sections {
+    grid-template-columns: 1fr;
+    padding: 0 var(--gap-md);
+  }
+}
+
+/* Accordion buttons */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: var(--gap-md);
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  transition: var(--transition-sm);
+  margin-top: var(--gap-sm);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.accordion:hover,
+.accordion.active {
+  background-color: #ddd;
+}
+
+.panel {
+  padding: var(--gap-sm);
+  display: none;
+  background-color: transparent;
+  overflow: auto;
+}
+
+.panel.show {
+  display: block;
+}
+
+/* Responsive table */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: var(--gap-md);
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: var(--radius-md);
+}
+
+table.responsive-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 0;
+  table-layout: auto;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text-dark);
+}
+
+table.responsive-table th,
+table.responsive-table td {
+  padding: var(--gap-sm);
+  border: 1px solid var(--border-light);
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  vertical-align: top;
+}
+
+table.responsive-table thead th {
+  background: linear-gradient(180deg, #f6fbfe, #eef7fb);
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+table.responsive-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* ============================================================================
+   VETERINÁRIO ESPECÍFICO
+   ============================================================================ */
+.form-group {
+  margin-bottom: var(--gap-md);
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: var(--gap-sm);
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: var(--gap-sm);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(109, 213, 237, 0.1);
+}
+
+/* ============================================================================
+   UTILITÁRIOS
+   ============================================================================ */
+
+.text-muted {
+  color: var(--text-light) !important;
+}
+
+html.dark-mode .text-muted {
+  color: #d0d0d0 !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.badge {
+  color: #212529;
+}
+
+html.dark-mode .badge {
+  background-color: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #404040 !important;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+
+.mb-1 {
+  margin-bottom: var(--gap-sm);
+}
+
+.mb-2 {
+  margin-bottom: var(--gap-md);
+}
+
+.mb-3 {
+  margin-bottom: var(--gap-lg);
+}
+
+.mt-3 {
+  margin-top: var(--gap-lg);
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.bg-light {
+  background-color: var(--bs-light) !important;
+}
+
+/* ============================================================================
+   9. LOGIN PAGES - Flex layout sem overflow
+   ============================================================================ */
+
+/* Seção de login: cresce para ocupar espaço disponível entre header e footer */
+.login-section {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  min-height: 0; /* importante para permitir flex shrink */
+  width: 100%;
+}
+
+/* Container do login: limita largura máxima do card */
+.login-container {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card: container flexível que não ultrapassa a altura disponível */
+.login-card {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Conteúdo do card: permite scroll interno se necessário */
+.login-card-content {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: var(--gap-md);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+  min-height: 0;
+  text-align: center;
+}
+
+/* Formulário: ocupa espaço e empurra botão para baixo */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  margin-top: auto;
+}
+
+.login-form button {
+  margin-top: auto;
+}
+
+/* Responsivo: reduzir padding em telas pequenas */
+@media (max-width: 600px) {
+  .login-section {
+    padding: 16px;
+  }
+
+  .login-card-content {
+    padding: 1.5rem;
+  }
+
+  .login-container {
+    max-width: 100%;
+  }
+}
+
+/* Garantir que header e main sejam containers flex distintos */
+.app-header {
+  flex: 0 0 auto;                  /* não expande, altura natural */
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.app-main {
+  flex: 1 1 auto;                  /* cresce/encolhe para ocupar espaço restante */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;                   /* permite overflow em filhos */
+}
+
+.app-footer {
+  flex: 0 0 auto;                  /* não expande */
+  width: 100%;                     /* garante largura total */
+  box-sizing: border-box;
+}
+
+/* ANIMACOESSSSSSSSSSSSSS */
+.fly-clone {
+    position: fixed;
+    z-index: 10000;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    will-change: top, left, width, height, transform;
+}
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(10,20,30,0);
+    z-index: 9999;
+    transition: background 0.4s ease;
+}
+.modal {
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.95);
+    max-width: 860px;
+    width: 90%;
+    max-height: 80vh;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    transition: all 0.3s ease;
+}
+.modal.open {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ============================================================================
+   DARK MODE - Estilos específicos
+   ============================================================================ */
+
+html.dark-mode .card {
+  background-color: #1a1a1a;
+  border-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+html.dark-mode .modal {
+  background-color: #1a1a1a;
+  color: var(--text-dark);
+}
+
+html.dark-mode .auth-card {
+  background-color: #1a1a1a;
+  border-color: var(--border-light);
+}
+
+html.dark-mode .form-group input,
+html.dark-mode .form-group textarea,
+html.dark-mode .form-group select {
+  background-color: #2a2a2a;
+  color: var(--text-light);
+  border-color: var(--border-light);
+}
+
+html.dark-mode .form-group input:focus,
+html.dark-mode .form-group textarea:focus,
+html.dark-mode .form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26, 143, 168, 0.1);
+}
+
+html.dark-mode .table-responsive,
+html.dark-mode table.responsive-table {
+  background-color: #1a1a1a;
+  color: var(--text-dark);
+}
+
+html.dark-mode table.responsive-table th,
+html.dark-mode table.responsive-table td {
+  border-color: var(--border-light);
+  background-color: #1a1a1a;
+  color: var(--text-dark);
+}
+
+html.dark-mode table.responsive-table thead th {
+  background: linear-gradient(180deg, #2a2a2a, #1a1a1a);
+}
+
+html.dark-mode table.responsive-table tbody tr:nth-child(even) {
+  background-color: #151515;
+}
+
+html.dark-mode .section {
+  background-color: #1a1a1a;
+  border-color: var(--border-light);
+  color: var(--text-dark);
+}
+
+
+
+
+html.dark-mode .close-btn { background: #2a2a2a; border-color: #404040;  color: #e0e0e0;}
+html.dark-mode .close-btn:hover {  background-color: #353535;}
+
+html.dark-mode .panel {
+  border-color: #404040;
+  color: #e0e0e0;
+}
+
+html.dark-mode .form-card {
+  background-color: #1a1a1a;
+  border-color: var(--border-light);
+}
+
+html .dark-mode form label {
+  color: var(--text-light);
+}
+
+html.dark-mode .bg-light {
+  background-color: #1a1a1a !important;
+}
+
+html.dark-mode .btn-contact {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+html.dark-mode .btn-contact:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

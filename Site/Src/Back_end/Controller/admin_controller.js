@@ -1,16 +1,17 @@
 const admin = require('../Model/admin_model');
 const userModel = require('../Model/user_model');
 const productModel = require('../Model/product_model');
+const cartModel = require('../Model/cart_model');
 
 const perfilAdmin = async (req, res) => {
     const { senha } = req.body || {};
 
-    const adminRow = await admin.loginAdmin();
+    const adminRow = await admin.findOne({ attributes: ['senha'], raw: true });
     const adminKey = adminRow ? String(adminRow.senha): null;
 
-    const [userList, productList] = await Promise.all([
+    const [userList, productList, cartList] = await Promise.all([
         await Promise.resolve(userModel.getTodosusuarios()),
-        await Promise.resolve(productModel.getTodosProdutos())
+        Promise.resolve(productModel.getTodosProdutos()),
     ]);
 
     if (senha && senha === adminKey) {
@@ -19,7 +20,8 @@ const perfilAdmin = async (req, res) => {
 
         res.render("Perfil/admin", { 
             usuarios: userList,
-             produtos: productList 
+            produtos: productList,
+            messages: req.flash()
         });
     }
     else {

@@ -41,7 +41,11 @@ const Carrinho = sequelize.define('carrinho', {
 
 const getCarrinhoPorUsuario = (usuarioId) => Carrinho.findAll({ where: { usuarioId: usuarioId }, raw: true });
 
-const adicionarAoCarrinho = (params) => Carrinho.create(params);
+const adicionarAoCarrinho = (id, params) => Carrinho.update(params, { where: { id: id }, raw: true }).then(([rowsUpdated]) => {
+    if (rowsUpdated === 0) {
+        return Carrinho.create(params);
+    }
+}); // Atualiza o item do carrinho se existir, caso contrário, cria um novo item
 
 const deletarItemDoCarrinho = (id) => Carrinho.destroy({ where: { id: id }, raw: true });
 

@@ -17,6 +17,15 @@ const Produto = sequelize.define('produto', {
     type: DataTypes.STRING,
     allowNull: false
   },
+  imagem:{
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: 'sem_imagem.png'
+  },
+  preco: {
+    type: DataTypes.FLOAT,
+    allowNull: false
+  },
   estado: {
     type: DataTypes.STRING,
     allowNull: false

@@ -17,17 +17,17 @@ const perfilUsuario = async (req, res) => {
         return loginUsuario(req, res);
     }
 
-    const produtosDisponiveis = await modeloProduto.getProdutosDisponiveis();
     req.session.user = {tipo_conta: 'usuario', id: usuario.id, nome: usuario.nome, email: usuario.email};
     return paginaUsuario(req, res);
 };
 
 const loginUsuario = (req, res) => {
-    res.render('Logins/usuario', { error: req.flash('error') });
+    res.render('Logins/usuario', { messages: req.flash() });
 };
 
-const paginaUsuario = (req, res) => {
-    res.render('Perfil/usuario', { nome: req.session.user.nome, mensagem: req.flash('success'), erros: req.flash('error') });
+const paginaUsuario = async (req, res) => {
+    const produtosDisponiveis = await modeloProduto.getProdutosDisponiveis();
+    res.render('Perfil/usuario', { nome: req.session.user.nome, messages: req.flash(), produtos: produtosDisponiveis });
 };
 
 
@@ -47,10 +47,12 @@ const postUser = async (req, res) => {
     const { nome, email, senha } = req.body;
     const novouser = await Promise.resolve(modeloUser.criarusuario(req.body));
     if (novouser){
-        return res.render('Avisos/Usuario/criarUsuario', { nome: nome, email: email, senha: senha, mensagem: 'user criado com sucesso'});
+        req.flash('success', 'user criado com sucesso!');
+        return perfilUsuario(req, res);
     }
     else {
-        return res.render('Avisos/Usuario/criarUsuario', { nome: nome, email: email, senha: senha, mensagem: 'user falhou ao ser criado!'});
+        req.flash('error', 'user falhou ao ser criado!');
+        return perfilUsuario(req, res);
     }
 };
 
@@ -60,10 +62,10 @@ const deleteUser = async (req, res) => {
     if (user) {
         await modeloUser.deletarusuario(id);
         req.flash('success', 'user deletado com sucesso');
-        return paginaUsuario(req, res);
+        return perfilUsuario(req, res);
     } else {
         req.flash('error', 'user não encontrado');
-        return paginaUsuario(req, res);
+        return perfilUsuario(req, res);
     }
 };
 

@@ -1,0 +1,212 @@
+<footer class="app-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <!-- Coluna 1: Empresa -->
+      <div class="footer-column">
+        <div class="footer-brand">
+          <div class="footer-logo"><!-- Logo --></div>
+          <h3>Vaccum</h3>
+        </div>
+        <p class="footer-description">
+            Seu conforto, nosso sucesso.
+        </p>
+      </div>
+
+      <!-- Coluna 2: Links Rápidos -->
+      <div class="footer-column">
+        <h4 class="footer-title">Links Rápidos</h4>
+        <ul class="footer-links">
+          <li><a href="/">Início</a></li>
+          <li><a href="/#sobre">Sobre Nós</a></li>
+          <li><a href="/#servicos">Serviços</a></li>
+          <li><a href="/#contato">Contato</a></li>
+        </ul>
+      </div>
+
+      <!-- Coluna 3: Contato -->
+      <div class="footer-column">
+        <h4 class="footer-title">Contato</h4>
+        <div class="footer-contact">
+          <p>contato@vaccum.com.br</p>
+          <p>(11) 9999-9999</p>
+          <p>São Paulo, SP - Brasil</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+      <p>&copy; 2026 Vaccum - Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .app-footer {
+    background: linear-gradient(180deg, #1a1a1a, #0a0a0a);
+    color: #fff;
+    padding: 20px 24px 15px;
+    margin-top: auto;
+    flex-shrink: 0;
+  }
+
+  .footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Marca da Empresa */
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .footer-logo {
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .footer-brand h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #6dd5ed;
+  }
+
+  .footer-description {
+    margin: 0;
+    font-size: 13px;
+    color: #b0b0b0;
+    line-height: 1.6;
+  }
+
+  /* Títulos das Colunas */
+  .footer-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #6dd5ed;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Links do Footer */
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: #6dd5ed;
+  }
+
+  /* Contato */
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .footer-contact p {
+    margin: 0;
+    font-size: 13px;
+    color: #b0b0b0;
+  }
+
+  /* Redes Sociais */
+  .footer-social {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .social-link {
+    padding: 6px 12px;
+    background: rgba(109, 213, 237, 0.1);
+    border: 1px solid rgba(109, 213, 237, 0.3);
+    color: #6dd5ed;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .social-link:hover {
+    background: rgba(109, 213, 237, 0.2);
+    border-color: #6dd5ed;
+  }
+
+  /* Footer Bottom */
+  .footer-bottom {
+    text-align: center;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    font-size: 11px;
+    color: #808080;
+  }
+
+  /* Responsivo */
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .footer-brand h3 {
+      font-size: 16px;
+    }
+
+    .footer-links {
+      gap: 4px;
+    }
+
+    .footer-links a {
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .app-footer {
+      padding: 15px 12px 10px;
+    }
+
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .footer-brand {
+      margin-bottom: 0;
+    }
+  }
+</style>

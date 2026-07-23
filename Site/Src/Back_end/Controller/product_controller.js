@@ -18,14 +18,24 @@ const getProductId = (req, res) => {
     }
 };
 
-const postProduct = (req, res) => {
-    const { nome, modelo, estado } = req.body;
-    const novoProduto = modeloProduto.criarProduto(nome, modelo, estado);
+const postProduct = async (req, res) => {
+    if (req.file) {
+       req.body.imagem = '/img/produtos/' + req.file.filename; //faz a img que o adm colocar ficar salva na pasta de produtos, pra incluir o autor é mto trampo
+    } 
+
+    const novoProduto = await Promise.resolve(modeloProduto.criarProduto(req.body));
+
+    if(!req.body.imagem){
+        delete req.body.imagem; // Remove a propriedade "imagem" do objeto req.body se não houver arquivo enviado
+    }
+
     if (novoProduto){
-        res.json({ mensagem: 'produto criado com sucesso'});
+        req.flash('success', 'produto criado com sucesso!');
+        return res.redirect('Perfil/admin', { messages: req.flash() });
     }
     else {
-        res.json({ mensagem: 'produto falhou ao ser criado!'});
+        req.flash('error', 'produto falhou ao ser criado!');
+        return res.redirect('Perfil/admin', { messages: req.flash() });
     };
 };
 

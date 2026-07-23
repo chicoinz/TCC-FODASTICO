@@ -1,22 +1,17 @@
 const cartModelo = require('../Model/cart_model');
+const paginaUsuario = require('./user_controller').paginaUsuario;   
 
 const addToCart = async (req, res) => {
-    const { usuarioId, produtoId, quantidade } = req.body;
-    const date = new Date().toISOString().split('T')[0]; // data atual no formato YYYY-MM-DD
-    const novoItem = await cartModelo.adicionarAoCarrinho({ usuarioId, produtoId, quantidade, data: date });
+    const { usuarioId, produtoId, quantidade, data } = req.body;
+    const novoItem = await cartModelo.adicionarAoCarrinho({ usuarioId, produtoId, quantidade, data });
     console.log('Item adicionado ao carrinho:', novoItem);
     if (novoItem === null) {
         console.error('Erro ao adicionar item ao carrinho');
         return res.status(500).json({ mensagem: 'Erro ao adicionar item ao carrinho' });
     }
     else {
-        console.log('Item adicionado ao carrinho com sucesso:');
-        return res.render('Avisos/Carrinho/adicionarCarrinho', { item: novoItem,
-            emailUsuario: req.session.user.email,
-            senhaUsuario: req.session.user.senha,
-            nome: req.session.user.nome,
-            mensagem: 'Item adicionado ao carrinho com sucesso!'
-        });
+        req.flash('success', 'Item adicionado ao carrinho com sucesso!');
+        return paginaUsuario(req, res);
     }
 };
 
