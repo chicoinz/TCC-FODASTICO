@@ -1,50 +1,436 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VACCUM Co.</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="/css/style.css" rel="stylesheet">
-    <style>
-      /* role buttons styling: uniform size, centered text and visual harmony */
-      .roles {display:flex;flex-direction:column;gap:12px;margin-top:6px}
-      .role-btn{
-        display:block;width:100%;padding:12px 14px;border-radius:10px;border:0;font-size:16px;font-weight:700;text-align:center;color:#fff;text-decoration:none;
-        background:linear-gradient(90deg,#6dd5ed,#2193b0);box-shadow:0 8px 20px rgba(2,20,60,0.12);transition:all 0.3s ease;
-      }
-      .role-btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(2,20,60,0.18)}
-      .role-btn:active{transform:translateY(1px)}
-    </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="VACCUM Co. — aspirador de pó semiautomático com sensor ultrassônico e Arduino, criado como Trabalho de Conclusão de Curso."
+    />
+    <title>VACCUM Co. — Aspirador de pó semiautomático</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link href="/Css/style.css" rel="stylesheet" />
+    <link href="/Css/header.css" rel="stylesheet" />
+    <link href="/Css/footer.css" rel="stylesheet" />
+    <link href="/Css/landing.css" rel="stylesheet" />
+    <script>
+      // Aplica o tema antes da primeira pintura para evitar piscada de cor.
+      (function () {
+        var salvo = localStorage.getItem('darkMode');
+        var escuro = salvo === null
+          ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          : salvo === 'true';
+        if (escuro) document.documentElement.classList.add('dark-mode');
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-container">
+        <a class="logo-section" href="/">
+          <span class="logo-icon" aria-hidden="true"></span>
+          <h1 class="company-name">VACCUM<span> Co.</span></h1>
+        </a>
 
-    <section class="vh-100" style="background-color: #508bfc;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <h1 class="text-center text-white mb-4">VACCUM Co.</h1>
-      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div class="card shadow-2-strong" style="border-radius: 1rem;">
-          <div class="card-body p-5 text-center">
+        <div class="header-center">
+          <nav class="header-nav" aria-label="Navegação principal">
+            <a href="#inicio" class="header-link active">Início</a>
+            <a href="#como-funciona" class="header-link">Como funciona</a>
+            <a href="#recursos" class="header-link">Recursos</a>
+            <a href="#ficha-tecnica" class="header-link">Ficha técnica</a>
+            <a href="#contato" class="header-link">Contato</a>
+          </nav>
+        </div>
 
-            <h3 class="mb-5">Bem vindo a Vaccum!</h3>
+        <div class="header-right">
+          <a href="#acesso" class="btn-contact">Entrar</a>
+          <button
+            class="btn-theme"
+            id="themeToggle"
+            type="button"
+            title="Alternar modo noturno"
+            aria-label="Alternar modo noturno"
+          >
+            <span class="theme-icon">🌙</span>
+          </button>
+        </div>
 
-                <div class="roles">
-              <a class="role-btn" href="usuario/login">Cliente</a>
-              <a class="role-btn btn-warning" href="admin/login">Administrador</a>
-                </div>
+        <button
+          class="header-toggle"
+          id="headerToggle"
+          type="button"
+          aria-label="Abrir menu"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
 
-            <!-- Checkbox -->
+    <main class="app-main landing" id="inicio">
+      <!-- ============================ HERO ============================ -->
+      <section class="hero">
+        <div class="section-shell hero-grid">
+          <div>
+            <p class="eyebrow">TCC 2026 · Robótica e automação</p>
+            <h1>Limpeza <em>semiautomática</em>, no ritmo da sua casa.</h1>
+            <p>
+              O VACCUM é um aspirador de pó semiautomático: você aponta a
+              direção, ele cuida do resto. Um sensor ultrassônico mede a
+              distância dos obstáculos em tempo real e o Arduino decide quando
+              desviar, parar ou continuar aspirando.
+            </p>
 
+            <div class="hero-actions">
+              <a href="#acesso" class="btn btn-primary btn-lg">Acessar a loja</a>
+              <a href="#como-funciona" class="btn btn-lg btn-ghost"
+                >Ver como funciona</a
+              >
+            </div>
 
-           
+            <dl class="hero-stats">
+              <div>
+                <dt>2 cm–4 m</dt>
+                <dd>Alcance do sensor ultrassônico</dd>
+              </div>
+              <div>
+                <dt>R$ 55,40</dt>
+                <dd>Custo total dos componentes</dd>
+              </div>
+              <div>
+                <dt>5 V</dt>
+                <dd>Alimentação do Arduino Nano</dd>
+              </div>
+            </dl>
+          </div>
+
+          <figure class="hero-figure">
+            <svg
+              class="robot"
+              viewBox="0 0 400 320"
+              role="img"
+              aria-label="Ilustração do aspirador semiautomático emitindo ondas do sensor ultrassônico"
+            >
+              <defs>
+                <linearGradient id="chassi" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3fc6e0" />
+                  <stop offset="100%" stop-color="#0d3a52" />
+                </linearGradient>
+                <linearGradient id="tampa" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7fe3f5" />
+                  <stop offset="100%" stop-color="#128aa8" />
+                </linearGradient>
+              </defs>
+
+              <!-- Ondas do sensor -->
+              <g fill="none" stroke="#7fe3f5" stroke-linecap="round" stroke-width="4">
+                <path class="wave wave-1" d="M300 150a60 60 0 0 1 0 60" opacity=".8" />
+                <path class="wave wave-2" d="M320 132a95 95 0 0 1 0 96" opacity=".55" />
+                <path class="wave wave-3" d="M340 114a130 130 0 0 1 0 132" opacity=".3" />
+              </g>
+
+              <!-- Sombra -->
+              <ellipse cx="170" cy="266" rx="120" ry="16" fill="#04121c" opacity=".45" />
+
+              <!-- Corpo -->
+              <ellipse cx="170" cy="200" rx="140" ry="52" fill="url(#chassi)" />
+              <ellipse cx="170" cy="186" rx="140" ry="52" fill="url(#tampa)" />
+              <ellipse cx="170" cy="180" rx="104" ry="36" fill="#0d3a52" opacity=".35" />
+
+              <!-- Escova rotativa -->
+              <g class="brush">
+                <circle cx="170" cy="180" r="30" fill="#04121c" opacity=".7" />
+                <g stroke="#7fe3f5" stroke-width="5" stroke-linecap="round">
+                  <line x1="170" y1="152" x2="170" y2="208" />
+                  <line x1="142" y1="180" x2="198" y2="180" />
+                  <line x1="150" y1="160" x2="190" y2="200" />
+                  <line x1="190" y1="160" x2="150" y2="200" />
+                </g>
+                <circle cx="170" cy="180" r="8" fill="#fbbf24" />
+              </g>
+
+              <!-- Painel do sensor -->
+              <rect x="248" y="158" width="54" height="30" rx="14" fill="#04121c" opacity=".8" />
+              <circle cx="264" cy="173" r="9" fill="#7fe3f5" />
+              <circle cx="286" cy="173" r="9" fill="#7fe3f5" />
+
+              <!-- Botão / LED de status -->
+              <circle cx="82" cy="176" r="12" fill="#fbbf24" />
+            </svg>
+          </figure>
+        </div>
+      </section>
+
+      <!-- ======================= COMO FUNCIONA ======================== -->
+      <section class="section-shell" id="como-funciona">
+        <div class="section-head">
+          <p class="eyebrow">Como funciona</p>
+          <h2>Três etapas entre o comando e o chão limpo</h2>
+          <p class="lead">
+            O modo semiautomático mantém o controle com você e deixa as decisões
+            rápidas com o microcontrolador.
+          </p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <h3>Você direciona</h3>
+            <p>
+              O usuário liga o aparelho e escolhe a área que quer limpar. Nada de
+              mapeamento complicado: o comando inicial é humano.
+            </p>
+          </article>
+          <article class="step">
+            <h3>O sensor mede</h3>
+            <p>
+              O sensor ultrassônico de quatro pinos dispara pulsos e calcula a
+              distância até o obstáculo mais próximo, várias vezes por segundo.
+            </p>
+          </article>
+          <article class="step">
+            <h3>O Arduino decide</h3>
+            <p>
+              Abaixo da distância mínima, o Arduino Nano corta o motor pelo relé,
+              recua e reorienta o aspirador antes de retomar a sucção.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ========================== RECURSOS ========================== -->
+      <section class="section-shell" id="recursos">
+        <div class="section-head">
+          <p class="eyebrow">Recursos</p>
+          <h2>Eletrônica simples, resultado consistente</h2>
+        </div>
+
+        <div class="features">
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">📡</span>
+            <h3>Sensor ultrassônico</h3>
+            <p>
+              Detecta paredes, móveis e degraus antes do impacto, com leitura
+              contínua de distância.
+            </p>
+          </article>
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">🧠</span>
+            <h3>Arduino Nano</h3>
+            <p>
+              Todo o controle roda em código aberto, fácil de ajustar e de
+              reprogramar para novos cenários de limpeza.
+            </p>
+          </article>
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">🌀</span>
+            <h3>Motor CC com relé</h3>
+            <p>
+              O relé isola a potência do motor da lógica de controle, protegendo o
+              circuito e prolongando a vida útil.
+            </p>
+          </article>
+          <article class="feature">
+            <span class="feature-icon" aria-hidden="true">🛡️</span>
+            <h3>Proteção do circuito</h3>
+            <p>
+              Diodo de roda livre e transistor nMOS de pequenos sinais evitam
+              picos de tensão no chaveamento.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ======================= FICHA TÉCNICA ======================== -->
+      <section class="section-shell" id="ficha-tecnica">
+        <div class="section-head">
+          <p class="eyebrow">Ficha técnica</p>
+          <h2>O que existe dentro do VACCUM</h2>
+        </div>
+
+        <div class="specs">
+          <div>
+            <div class="table-responsive">
+              <table class="responsive-table">
+                <caption class="visually-hidden">
+                  Componentes utilizados no protótipo e seus custos
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Componente</th>
+                    <th scope="col">Qtd.</th>
+                    <th scope="col">Custo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td data-label="Componente">Arduino Nano</td>
+                    <td data-label="Qtd.">1</td>
+                    <td data-label="Custo">R$ 20,00</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Componente">Motor CC</td>
+                    <td data-label="Qtd.">1</td>
+                    <td data-label="Custo">R$ 7,00</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Componente">Diodo</td>
+                    <td data-label="Qtd.">1</td>
+                    <td data-label="Custo">R$ 4,00</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Componente">Relé</td>
+                    <td data-label="Qtd.">1</td>
+                    <td data-label="Custo">R$ 10,00</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Componente">
+                      Transistor nMOS de pequenos sinais
+                    </td>
+                    <td data-label="Qtd.">1</td>
+                    <td data-label="Custo">R$ 2,40</td>
+                  </tr>
+                  <tr>
+                    <td data-label="Componente">
+                      Sensor de distância ultrassônico (4 pinos)
+                    </td>
+                    <td data-label="Qtd.">1</td>
+                    <td data-label="Custo">R$ 12,00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="spec-total">
+              <span>Custo total do protótipo</span>
+              <span>R$ 55,40</span>
+            </p>
+          </div>
+
+          <div>
+            <h3>Por que semiautomático?</h3>
+            <p class="text-muted mb-3">
+              Um robô totalmente autônomo exige mapeamento, giroscópio e bateria
+              dedicada. O modelo semiautomático entrega a parte mais útil da
+              automação — desviar de obstáculos sem intervenção — por uma fração
+              do custo, o que torna o projeto viável como TCC.
+            </p>
+            <ul class="contact-list text-muted">
+              <li><strong>Autonomia:</strong> desvio automático de obstáculos</li>
+              <li><strong>Controle:</strong> direção definida pelo usuário</li>
+              <li><strong>Código:</strong> Arduino IDE, aberto e comentado</li>
+              <li><strong>Montagem:</strong> protoboard e placa em TCC.brd</li>
+            </ul>
           </div>
         </div>
+      </section>
+
+      <!-- =========================== ACESSO =========================== -->
+      <section class="section-shell" id="acesso">
+        <div class="section-head">
+          <p class="eyebrow">Acesso</p>
+          <h2>Entre na plataforma</h2>
+          <p class="lead">
+            Clientes acompanham pedidos e compram o aspirador; a equipe
+            administra o catálogo.
+          </p>
+        </div>
+
+        <div class="access">
+          <a class="role-card" href="usuario/login">
+            <span class="role-title">Sou cliente <span aria-hidden="true">→</span></span>
+            <p>
+              Faça login para conhecer os modelos disponíveis e adicionar o VACCUM
+              ao carrinho.
+            </p>
+            <span class="badge">Loja</span>
+          </a>
+
+          <a class="role-card is-admin" href="admin/login">
+            <span class="role-title"
+              >Sou administrador <span aria-hidden="true">→</span></span
+            >
+            <p>
+              Área restrita da equipe: cadastro de produtos, consulta de usuários
+              e acompanhamento de pedidos.
+            </p>
+            <span class="badge">Equipe</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ========================== CONTATO =========================== -->
+      <section class="section-shell" id="contato">
+        <div class="contact-band">
+          <div>
+            <h2>Ficou com alguma dúvida sobre o projeto?</h2>
+            <p>
+              Fale com a equipe do TCC: explicamos o circuito, o código e as
+              decisões de projeto do aspirador.
+            </p>
+          </div>
+          <ul class="contact-list">
+            <li><strong>E-mail:</strong> contato@vaccum.com.br</li>
+            <li><strong>Telefone:</strong> (11) 99999-9999</li>
+            <li><strong>Local:</strong> São Paulo, SP — Brasil</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <div class="footer-brand">
+              <span class="footer-logo" aria-hidden="true"></span>
+              <h3>VACCUM Co.</h3>
+            </div>
+            <p class="footer-description">
+              Aspirador de pó semiautomático desenvolvido como Trabalho de
+              Conclusão de Curso. Seu conforto, nosso sucesso.
+            </p>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-title">Navegação</h4>
+            <ul class="footer-links">
+              <li><a href="#inicio">Início</a></li>
+              <li><a href="#como-funciona">Como funciona</a></li>
+              <li><a href="#recursos">Recursos</a></li>
+              <li><a href="#ficha-tecnica">Ficha técnica</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h4 class="footer-title">Contato</h4>
+            <div class="footer-contact">
+              <p>contato@vaccum.com.br</p>
+              <p>(11) 99999-9999</p>
+              <p>São Paulo, SP — Brasil</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 VACCUM Co. — Todos os direitos reservados.</p>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
-</body>
+    </footer>
+
+    <script src="/Scripts/theme.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

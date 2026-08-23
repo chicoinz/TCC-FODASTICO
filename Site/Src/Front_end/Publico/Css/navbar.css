@@ -1,0 +1,144 @@
+/* ============================================================================
+   Menu lateral — VACCUM Co.
+   Depende dos tokens de style.css
+   ============================================================================ */
+.navbar-toggle {
+  position: fixed;
+  inset-block-start: 78px;
+  inset-inline-start: var(--gap-md);
+  z-index: 101;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid color-mix(in oklab, var(--brand-300) 40%, transparent);
+  border-radius: var(--radius-md);
+  background: var(--gradient-brand);
+  color: var(--text-on-brand);
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-sm), box-shadow var(--transition-sm);
+}
+
+.navbar-toggle:hover {
+  transform: scale(1.06);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Reserva espaço para o botão fixo do menu nas páginas com barra lateral. */
+.app-main {
+  padding-inline-start: 68px;
+}
+
+.navbar {
+  position: fixed;
+  inset-block-start: 72px;
+  inset-inline-start: -280px;
+  z-index: 99;
+  width: 280px;
+  height: calc(100vh - 72px);
+  padding-block: var(--gap-lg);
+  background: var(--surface-1);
+  border-inline-end: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  transition: inset-inline-start var(--transition-md);
+}
+
+.navbar.open {
+  inset-inline-start: 0;
+}
+
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-inline: var(--gap-md);
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xs);
+  flex: 1;
+}
+
+.navbar-link {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-md);
+  padding: var(--gap-md);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 600;
+  border-inline-start: 3px solid transparent;
+  transition: background var(--transition-sm), color var(--transition-sm),
+    border-color var(--transition-sm);
+}
+
+.navbar-link:hover {
+  background: color-mix(in oklab, var(--brand-300) 18%, transparent);
+  border-inline-start-color: var(--brand-500);
+  color: var(--brand-700);
+}
+
+.navbar-link.active {
+  background: color-mix(in oklab, var(--brand-300) 26%, transparent);
+  border-inline-start-color: var(--brand-500);
+  color: var(--brand-700);
+}
+
+html.dark-mode .navbar-link:hover,
+html.dark-mode .navbar-link.active {
+  color: var(--brand-200);
+}
+
+.link-icon {
+  flex: 0 0 24px;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+.link-text {
+  flex: 1;
+}
+
+.navbar-logout {
+  padding-block-start: var(--gap-md);
+  border-block-start: 1px solid var(--border);
+}
+
+.btn-logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-sm);
+  width: 100%;
+  padding: var(--gap-sm) var(--gap-md);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--gradient-brand);
+  color: var(--text-on-brand);
+  font-weight: 700;
+  font-size: var(--step--1);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition-sm), box-shadow var(--transition-sm);
+}
+
+.btn-logout:hover {
+  color: var(--text-on-brand);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    width: 100%;
+    inset-inline-start: -100%;
+  }
+}
