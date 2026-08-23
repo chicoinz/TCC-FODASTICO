@@ -1,10 +1,10 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('tcc', 'root', 'aluno123', {
-  host: 'localhost',
-  dialect: 'mysql',
-  port: 3306,
-  logging: console.log
+const sequelize = new Sequelize('tcc', 'tccapp', 'tcc123', {
+    host: '127.0.0.1',
+    dialect: 'mysql',
+    port: 3000,
+   logging: console.log
 });
  
 sequelize.authenticate()
