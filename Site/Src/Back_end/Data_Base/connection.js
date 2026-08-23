@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const sequelize = new Sequelize('tcc', 'tccapp', 'tcc123', {
     host: '127.0.0.1',
     dialect: 'mysql',
-    port: 3000,
+    port: 3306,
    logging: console.log
 });
  
