@@ -1,12 +1,12 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('tcc', 'root', 'Aluno123', {
+const sequelize = new Sequelize('tcc', 'root', 'aluno123', {
   host: 'localhost',
   dialect: 'mysql',
   port: 3306,
   logging: console.log
 });
-
+ 
 sequelize.authenticate()
   .then(() => {
     console.log('✅ Conectado ao MySQL com sucesso!');
