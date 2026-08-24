@@ -13,4 +13,4 @@ function permissoes(...perfisPermitidos) {
   };
 }
 
-module.exports = permissoes;
+module.exports = permissoes; 
