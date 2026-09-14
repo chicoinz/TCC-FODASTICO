@@ -1,142 +1,144 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin_perfil</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <body>
+    <%- include('../../Publico/Partials/header.ejs', { titulo: 'Painel administrativo — VACCUM Co.' }) %>
+    <%- include('../../Publico/Partials/navbar.ejs') %>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/admin_forms.css">
-</head>
-<body>
-    <%- include('../../Publico/partials/header.ejs') %>
-    <%- include('../../Publico/partials/navbar.ejs') %>
+    <link rel="stylesheet" href="/Css/admin_forms.css">
+
     <main class="app-main">
-    <header class="page-header">
-        <h1 class="page-title">Perfil do Admin</h1>
-        <p class="page-subtitle">Gerencie animais, responsáveis, adoções, veterinários e exames</p>
+      <div class="page-header">
+        <h1 class="page-title">Painel administrativo</h1>
+        <p class="page-subtitle">
+          Gerencie o catálogo de aspiradores e os clientes cadastrados
+        </p>
+      </div>
 
-    </header>
-
-
-    <div class="sections" style="padding: 10px;">
-
-        <div class="section">
-            <button class="accordion">Produtos</button>
-            <div class="panel">
+      <div class="sections">
+        <!-- Produtos -->
+        <section class="section">
+          <button class="accordion" type="button">Aspiradores</button>
+          <div class="panel">
             <div class="form-card">
-            <form action="/produto/produtoPorId" method="GET">
-                <label for="id_produto">Id do produto</label>
+              <form action="/produto/produtoPorId" method="GET">
+                <label for="id_produto">Id do aspirador</label>
                 <input type="number" id="id_produto" name="id" required class="form-control">
-                <div class="text-end"><button type="submit" class="btn btn-primary">Buscar por ID</button></div>
-            </form>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">Buscar por ID</button>
+                </div>
+              </form>
             </div>
-            <h3>Lista de produtos cadastrados:</h3>
+
+            <h3>Aspiradores cadastrados</h3>
             <div class="table-responsive">
-                <table class="responsive-table" >
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Estado</th>
-                        </tr>
+              <table class="responsive-table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Estado</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    <% if (!produtos || produtos.length === 0) { %>
+                  <% if (!produtos || produtos.length === 0) { %>
                     <tr>
-                        <td colspan="5">Nenhum produto cadastrado.</td>
+                      <td colspan="3">Nenhum aspirador cadastrado.</td>
                     </tr>
-                    <% } else { %>
+                  <% } else { %>
                     <% (produtos || []).forEach(function(produto) { %>
-                    <tr>
+                      <tr>
                         <td data-label="ID"><%= produto.id %></td>
                         <td data-label="Nome"><%= produto.nome %></td>
                         <td data-label="Estado"><%= produto.estado %></td>
-                    </tr>
+                      </tr>
                     <% }); %>
-                    <% } %>
-                    </tr>
+                  <% } %>
                 </tbody>
-            </table>
+              </table>
             </div>
+
+            <h3 class="mt-3">Cadastrar novo aspirador</h3>
             <div class="form-card">
-                <form action="/produto/criar" method="POST" enctype="multipart/form-data">
-                    <label>Nome</label>
-                        <input type="text" name="nome" class="form-control">
-                    <label>Modelo</label>
-                        <input type="text" name="modelo" class="form-control">
-                    <label>Estado</label>
-                        <input type="text" name="estado" class="form-control">
-                    <label>Descrição</label>
-                        <textarea name="descricao" class="form-control" rows="4"></textarea>
-                    <label>Preço</label>
-                        <input type="number" name="preco" class="form-control" step="0.01">
-                    <label>Imagem</label>
-                    <input type="file" name="imagem" id="img" accept="image/*" class="form-control">
-                    <div class="text-end"><button type="submit" class="btn btn-success">Cadastrar novo</button></div>
-                </form>
+              <form action="/produto/criar" method="POST" enctype="multipart/form-data">
+                <label for="produto-nome">Nome</label>
+                <input type="text" id="produto-nome" name="nome" class="form-control">
+
+                <label for="produto-modelo">Modelo</label>
+                <input type="text" id="produto-modelo" name="modelo" class="form-control">
+
+                <label for="produto-estado">Estado</label>
+                <input type="text" id="produto-estado" name="estado" class="form-control">
+
+                <label for="produto-descricao">Descrição</label>
+                <textarea id="produto-descricao" name="descricao" class="form-control" rows="4"></textarea>
+
+                <label for="produto-preco">Preço</label>
+                <input type="number" id="produto-preco" name="preco" class="form-control" step="0.01">
+
+                <label for="img">Imagem</label>
+                <input type="file" name="imagem" id="img" accept="image/*" class="form-control">
+
+                <div class="text-end">
+                  <button type="submit" class="btn btn-success">Cadastrar aspirador</button>
+                </div>
+              </form>
             </div>
-            </div>
+          </div>
+        </section>
 
-            
-
-            </div>
-        </div>
-
-
-        <div class="section">
-            <button class="accordion">Usuarios</button>
-            <div class="panel">
-            <h3>Listar todos os usuários</h3>
+        <!-- Usuários -->
+        <section class="section">
+          <button class="accordion" type="button">Clientes</button>
+          <div class="panel">
             <div class="form-card">
-            <form action="/usuario/usuarioPorId" method="POST">
-                <label for="id_usuario">Id do usuário</label>
+              <form action="/usuario/usuarioPorId" method="POST">
+                <label for="id_usuario">Id do cliente</label>
                 <input type="text" id="id_usuario" name="id_usuario" required class="form-control">
-                <div class="text-end"><button type="submit" class="btn btn-primary">Buscar por ID</button></div>
-            </form>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">Buscar por ID</button>
+                </div>
+              </form>
             </div>
+
+            <h3>Clientes cadastrados</h3>
             <div class="table-responsive">
-            <table class="responsive-table">
+              <table class="responsive-table">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                    </tr>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">E-mail</th>
+                  </tr>
                 </thead>
                 <tbody>
-                    <% if (!usuarios || usuarios.length === 0) { %>
+                  <% if (!usuarios || usuarios.length === 0) { %>
                     <tr>
-                        <td colspan="3">Nenhum usuário encontrado.</td>
+                      <td colspan="3">Nenhum cliente encontrado.</td>
                     </tr>
-                    <% } else { %>
+                  <% } else { %>
                     <% (usuarios || []).forEach(function(usuario) { %>
-                    <tr>
+                      <tr>
                         <td data-label="ID"><%= usuario.id %></td>
                         <td data-label="Nome"><%= usuario.nome %></td>
-                        <td data-label="Email"><%= usuario.email %></td>
-                    </tr>
+                        <td data-label="E-mail"><%= usuario.email %></td>
+                      </tr>
                     <% }); %>
-                    <% } %>
+                  <% } %>
                 </tbody>
-            </table>
+              </table>
             </div>
-        </div>
-    </div>
+          </div>
+        </section>
+      </div>
 
-
-    </div> <!-- .sections -->
-
-            <div class="form-card" style="max-width:220px; text-align:center;">
-            <form action="/admin/logout" method="GET">
-                <button class="btn btn-danger" type="submit">Logout</button>
-            </form>
-            </div>
+      <form action="/admin/logout" method="GET" class="admin-logout">
+        <button class="btn btn-danger" type="submit">Sair do painel</button>
+      </form>
     </main>
 
-    <%- include('../../Publico/partials/footer.ejs') %>
+    <%- include('../../Publico/Partials/footer.ejs') %>
 
     <script src="/Scripts/admin.js"></script>
-</body>
+  </body>
 </html>

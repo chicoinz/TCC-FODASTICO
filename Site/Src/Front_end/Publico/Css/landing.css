@@ -1,0 +1,336 @@
+/* ============================================================================
+   VACCUM Co. — Página inicial
+   Depende dos tokens definidos em style.css
+   ============================================================================ */
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-3xl);
+  padding-block-end: var(--gap-3xl);
+}
+
+.section-shell {
+  width: min(100% - 2rem, var(--content-max));
+  margin-inline: auto;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  max-width: 60ch;
+  margin-block-end: var(--gap-xl);
+}
+
+.section-head h2 {
+  margin: 0;
+  font-size: var(--step-3);
+}
+
+/* ---------------------------------------------------------------- HERO --- */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--gradient-suction);
+  color: hsl(var(--hue-brand) 40% 96%);
+  padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+/* Ondas de sucção desenhadas em CSS puro */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -30%;
+  inset-inline-end: -10%;
+  width: min(70vw, 720px);
+  aspect-ratio: 1;
+  z-index: -1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle,
+    color-mix(in oklab, var(--brand-300) 22%, transparent) 0 1px,
+    transparent 1px 38px
+  );
+  animation: vaccum-pulse 9s ease-in-out infinite;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: var(--step-4);
+  color: #fff;
+  margin-block: var(--gap-md);
+}
+
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(100deg, var(--brand-200), var(--accent-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero p {
+  max-width: 52ch;
+  font-size: var(--step-1);
+  color: color-mix(in oklab, #fff 78%, transparent);
+}
+
+.hero .eyebrow {
+  color: var(--brand-200);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
+  margin-block-start: var(--gap-xl);
+}
+
+.hero-actions .btn-ghost {
+  background: color-mix(in oklab, #fff 12%, transparent);
+  border: 1px solid color-mix(in oklab, #fff 35%, transparent);
+  color: #fff;
+}
+
+/* Indicadores numéricos */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--gap-lg);
+  margin-block-start: var(--gap-2xl);
+  padding-block-start: var(--gap-lg);
+  border-block-start: 1px solid color-mix(in oklab, #fff 20%, transparent);
+}
+
+.hero-stats dt {
+  font-size: var(--step-2);
+  font-weight: 800;
+  color: var(--brand-200);
+}
+
+.hero-stats dd {
+  margin: 0;
+  font-size: var(--step--1);
+  color: color-mix(in oklab, #fff 70%, transparent);
+}
+
+/* Ilustração do robô */
+.hero-figure {
+  display: grid;
+  place-items: center;
+}
+
+.robot {
+  width: min(100%, 420px);
+  filter: drop-shadow(0 30px 45px hsl(var(--hue-deep) 60% 4% / 0.6));
+}
+
+.robot .brush {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vaccum-spin 3.5s linear infinite;
+}
+
+.robot .wave {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vaccum-pulse 2.4s ease-in-out infinite;
+}
+
+.robot .wave-2 { animation-delay: 0.3s; }
+.robot .wave-3 { animation-delay: 0.6s; }
+
+/* ------------------------------------------------------------ COMO FUNCIONA */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--gap-lg);
+  counter-reset: passo;
+}
+
+.step {
+  position: relative;
+  padding: var(--gap-xl);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.step::before {
+  counter-increment: passo;
+  content: counter(passo, decimal-leading-zero);
+  display: block;
+  font-size: var(--step-2);
+  font-weight: 800;
+  color: color-mix(in oklab, var(--brand-500) 70%, transparent);
+  margin-block-end: var(--gap-sm);
+}
+
+.step h3 {
+  margin-block-end: var(--gap-xs);
+}
+
+.step p {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+
+/* ------------------------------------------------------------- RECURSOS --- */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  gap: var(--gap-lg);
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding: var(--gap-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--brand-300) 12%, var(--surface-0)),
+    var(--surface-0) 60%
+  );
+  transition: transform var(--transition-md), box-shadow var(--transition-md);
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-md);
+  background: var(--gradient-brand);
+  color: var(--text-on-brand);
+  font-size: var(--step-1);
+}
+
+.feature h3 {
+  font-size: var(--step-1);
+}
+
+.feature p {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+
+/* ------------------------------------------------------------- FICHA TÉC. - */
+.specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: var(--gap-2xl);
+  align-items: start;
+}
+
+.spec-total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-md);
+  margin-block-start: var(--gap-md);
+  padding: var(--gap-md) var(--gap-lg);
+  border-radius: var(--radius-md);
+  background: var(--gradient-accent);
+  color: hsl(var(--hue-accent) 90% 12%);
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------- ACESSO --- */
+.access {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  gap: var(--gap-lg);
+}
+
+.role-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  padding: var(--gap-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface-0);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-md), box-shadow var(--transition-md),
+    border-color var(--transition-md);
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-400);
+  box-shadow: var(--shadow-lg);
+  color: inherit;
+}
+
+.role-card .role-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-sm);
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--text-strong);
+}
+
+.role-card p {
+  color: var(--text-muted);
+  font-size: var(--step--1);
+}
+
+.role-card.is-admin {
+  background: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--accent-300) 22%, var(--surface-0)),
+    var(--surface-0) 65%
+  );
+}
+
+/* -------------------------------------------------------------- CONTATO --- */
+.contact-band {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: var(--gap-xl);
+  align-items: center;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border-radius: var(--radius-lg);
+  background: var(--gradient-suction);
+  color: #fff;
+}
+
+.contact-band h2 {
+  color: #fff;
+  margin: 0 0 var(--gap-sm);
+}
+
+.contact-band p {
+  color: color-mix(in oklab, #fff 75%, transparent);
+}
+
+.contact-list {
+  list-style: none;
+  display: grid;
+  gap: var(--gap-sm);
+  font-size: var(--step--1);
+}
+
+.contact-list strong {
+  color: var(--brand-200);
+}

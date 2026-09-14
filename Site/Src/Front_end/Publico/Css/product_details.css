@@ -1,174 +1,89 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f1e8;
-  color: #42635b;
-  min-height: 100vh;
-}
-
-main { 
-  background-color: #f5f1e8;
-  max-width: 100vw;
-  height: 100vw;
+/* ============================================================================
+   Página de detalhe do aspirador — VACCUM Co.
+   Depende dos tokens de style.css
+   ============================================================================ */
+.produto-detalhe {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 60px;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: clamp(1.5rem, 5vw, 3.5rem);
   align-items: start;
+  width: min(100% - 2rem, var(--content-max));
+  margin-inline: auto;
+  padding-block: var(--gap-2xl);
 }
 
-/* Compatibilidade com a marcação atual em EJS (sem classes semânticas) */
-main h1 {
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 4.8rem; /* aumentado para visual similar à imagem */
-  font-style: italic;
-  color: #42635b;
-  font-weight: 300;
-  line-height: 1.02;
-  margin-bottom: 24px;
-  letter-spacing: -1px;
+.produto-galeria {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--gradient-suction);
+  box-shadow: var(--shadow-lg);
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
 }
 
-/* Estiliza o card central que contém a capa */
-.card.h-100 {
+.produto-galeria img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.produto-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: transparent;
-  border: none;
+  gap: var(--gap-md);
 }
 
-.card.h-100 img {
-  width: 360px; /* capa maior para combinar com referência */
-  height: 500px;
-  border-radius: 18px;
-  object-fit: cover;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+.produto-info h1 {
+  font-size: var(--step-3);
 }
 
-/* Coluna Esquerda - Título e Descrição */
-main .section:nth-child(1) {
-    margin-top: 30px;
-    height: 100%;
-    margin-left: 70px;
-    grid-column: 1 / 2;
-    gap: 30px;
+.produto-modelo {
+  font-size: var(--step-1);
+  color: var(--text-muted);
 }
 
-#descricao {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #42635b;
-  text-align: justify;
+.produto-preco {
+  font-size: var(--step-3);
+  font-weight: 800;
+  color: var(--brand-600);
+  letter-spacing: -0.02em;
 }
 
-/* Centro - Capa do Livro */
-main .section:nth-child(2) {
-  margin-top: 20px;
-  height: 100%;
-  grid-column: 2 / 3;
-  margin: 40px 0;
+.produto-descricao {
+  color: var(--text-muted);
+  max-width: 62ch;
 }
 
-.capaLivro {
-  width: 480px;
-  height: 580px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.capaLivro img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Coluna Direita - Generos, Rating, Autor */
-main .section:nth-child(3) {
+/* Lista de especificações em duas colunas */
+.produto-specs {
   display: grid;
-  margin-top: 30px;
-  height: 100%;
-  grid-column: 3 / 4;
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr));
+  gap: var(--gap-md);
+  padding: var(--gap-lg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
 }
 
-
- #categoria {
-  color: #42635b;
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  font-weight: 400;
-  font-style: italic;
+.produto-specs dt {
+  font-size: var(--step--1);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
 }
 
-#classific {
-  font-size: 1.5rem;
-  color: #42635b;
+.produto-specs dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-strong);
 }
 
-/* Autor */
-#autor {
-  color: #42635b;
-  font-family: 'Lexend Deca', sans-serif;
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  font-weight: 400;
-  font-style: italic;
-}
-
-#logout-button{
-    position:relative;
-    top: 100%;
-    right: 20px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* Responsividade */
-@media (max-width: 1024px) {
-   main {
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--gap-md);
-  }
-}
-
-@media (max-width: 768px) {
-    main {
-    grid-template-columns: 1fr;
-    gap: var(--gap-md);
-    padding: var(--gap-md);
-  }
-  main > .section,
-  main .section:nth-child(1),
-  main .section:nth-child(2),
-  main .section:nth-child(3) {
-    grid-column: 1 / -1;
-    width: 100%;
-  }
-  main .section:nth-child(1),
-  main .section:nth-child(2),
-  main .section:nth-child(3) {
-    grid-column: auto;
-  }
-
-}
-    
-
-@media (max-width: 480px) {
- main {
-    grid-template-columns: 1fr;
-    gap: var(--gap-md);
-    padding: var(--gap-md);
-    grid-auto-rows: auto; /* garante altura automática das linhas */
-    align-items: start;
-  }
-
+.produto-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-md);
+  margin-block-start: var(--gap-md);
 }
