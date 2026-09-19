@@ -1,0 +1,230 @@
+/* ============================================================================
+   Cabeçalho global — VACCUM Co.
+   Depende dos tokens de style.css
+   ============================================================================ */
+.app-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 100;
+  width: 100%;
+  padding: var(--gap-md) clamp(1rem, 4vw, 2rem);
+  background: color-mix(in oklab, var(--deep-900) 88%, transparent);
+  border-block-end: 1px solid color-mix(in oklab, var(--brand-400) 28%, transparent);
+  box-shadow: var(--shadow-md);
+}
+
+@supports (backdrop-filter: blur(6px)) {
+  .app-header {
+    backdrop-filter: blur(12px) saturate(1.3);
+  }
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-lg);
+  width: min(100%, var(--content-max));
+  margin-inline: auto;
+}
+
+/* ------------------------------------------------------------- MARCA ----- */
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  text-decoration: none;
+  transition: transform var(--transition-sm);
+}
+
+.logo-section:hover {
+  transform: translateY(-1px);
+}
+
+/* Disco do aspirador desenhado em CSS */
+.logo-icon {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 220deg,
+    var(--brand-200),
+    var(--brand-500),
+    var(--deep-700),
+    var(--brand-200)
+  );
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--brand-300) 45%, transparent);
+  display: grid;
+  place-items: center;
+}
+
+.logo-icon::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--deep-900);
+  box-shadow: inset 0 0 0 2px color-mix(in oklab, var(--brand-200) 60%, transparent);
+}
+
+.company-name {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff;
+}
+
+.company-name span {
+  color: var(--brand-200);
+}
+
+/* --------------------------------------------------------- NAVEGAÇÃO ----- */
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs);
+}
+
+.header-link {
+  position: relative;
+  padding: var(--gap-sm) var(--gap-md);
+  border-radius: var(--radius-pill);
+  color: color-mix(in oklab, #fff 80%, transparent);
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 600;
+  transition: color var(--transition-sm), background var(--transition-sm);
+}
+
+.header-link:hover,
+.header-link.active {
+  color: #fff;
+  background: color-mix(in oklab, var(--brand-400) 22%, transparent);
+}
+
+/* ------------------------------------------------------------- AÇÕES ----- */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+}
+
+.btn-contact {
+  padding: 0.55em 1.1em;
+  border-radius: var(--radius-pill);
+  background: var(--gradient-brand);
+  border: 1px solid color-mix(in oklab, var(--brand-200) 40%, transparent);
+  color: #fff;
+  text-decoration: none;
+  font-size: var(--step--1);
+  font-weight: 700;
+  transition: transform var(--transition-sm), box-shadow var(--transition-sm);
+}
+
+.btn-contact:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-theme,
+.btn-profile {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  background: color-mix(in oklab, #fff 12%, transparent);
+  border: 1px solid color-mix(in oklab, #fff 28%, transparent);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--transition-sm), transform var(--transition-sm);
+}
+
+.btn-theme:hover,
+.btn-profile:hover {
+  background: color-mix(in oklab, var(--brand-400) 35%, transparent);
+  transform: scale(1.06);
+}
+
+.dropdown-menu {
+  --bs-dropdown-bg: var(--surface-0);
+  --bs-dropdown-link-color: var(--text);
+  --bs-dropdown-border-color: var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+}
+
+/* --------------------------------------------------------- MENU MOBILE --- */
+.header-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.header-toggle span {
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: #fff;
+  transition: transform var(--transition-md), opacity var(--transition-md);
+}
+
+.header-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.header-toggle.active span:nth-child(2) { opacity: 0; }
+.header-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .header-container {
+    flex-wrap: wrap;
+  }
+
+  .header-center {
+    order: 3;
+    flex-basis: 100%;
+  }
+
+  .header-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .header-center {
+    display: none;
+  }
+
+  .header-toggle {
+    display: flex;
+  }
+
+  .btn-contact {
+    display: none;
+  }
+
+  .header-container.mobile-open .header-center {
+    display: flex;
+  }
+
+  .header-container.mobile-open .header-nav {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    text-align: center;
+    padding-block: var(--gap-sm);
+  }
+}
